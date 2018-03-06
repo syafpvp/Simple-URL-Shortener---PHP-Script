@@ -9,4 +9,4 @@ Contains:
 
 How to install:
 
-Upload the files to your website, upload the "DEFAULT DATABASE" file to your database and do the MySQL connection in "config.php" file.
+* Upload the files to your website, upload the "DEFAULT DATABASE" file to your database and do the MySQL connection in "config.php" file.
