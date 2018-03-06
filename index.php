@@ -117,7 +117,7 @@ if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
 $url_already = $data[4];
 
 if($num_rows == 1){
-	die('<font color="white" size=5">You already shortened this URL. <a href="/'.$url_already.'">http://urlshortener.gq/'.$url_already.'</a></font>');	
+	die('<font color="white" size=5">You already shortened this URL. <a href="/'.$url_already.'">'.$website_url.$url_already.'</a></font>');	
 }
 
 if(strlen($url) > 200){
@@ -138,7 +138,7 @@ if( $fp == false ){
 
 
 ?>
-<p id="copy" hidden>http://urlshortener.gq/<?=$string?></p>
+<p id="copy" hidden><?=$website_url.$string?></p>
 <?php
 echo '<font color="white" size=5">Done! Here is your link: <a href="/'.$string.'">http://urlshortener.gq/'.$string.'</a>';?>  <button onclick="copyToClipboard('#copy')">Copy</button></font>
 <?php
@@ -162,27 +162,16 @@ if($shorted->num_rows){
 				<?php
 				    while ($fxla = $shorted->fetch_row()) {
 						?>
-						<p id="copy<?=$fxla[4]?>" hidden>http://urlshortener.gq/<?=$fxla[4]?></p>
+						<p id="copy<?=$fxla[4]?>" hidden><?=$website_url.$fxla[4]?></p>
 						<?php
 				echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="'.$fxla[1].'"><font color="#EB3B3B">'.page_title($fxla[1]).'</font></a><br>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="article-title smaller" href="'.$fxla[1].'"><font color="#EB3B3B">'.$fxla[1].'</font></a><br>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="short-url" href="/'.$fxla[4].'"><font size="1" color="#EB3B3B">http://urlshortener.gq/'.$fxla[4].'</font></a>'; ?> <button onclick="copyToClipboard('#copy<?=$fxla[4]?>')">Copy</button><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">Visitors: <?=$fxla[3]?></font><hr>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="short-url" href="/'.$fxla[4].'"><font size="1" color="#EB3B3B">'.$website_url.$fxla[4].'</font></a>'; ?> <button onclick="copyToClipboard('#copy<?=$fxla[4]?>')">Copy</button><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">Visitors: <?=$fxla[3]?></font><hr>
 					<?php }
 					?>		
-				</div>					
+								
+								</div>					
 				
 <?php } } } ?>
-<style>
-#footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   height:60px; 
-   background:#6cf;
-}
-  </style>
-  <br>
-  <div class="footer">Coded by @<a href="http://twitter.com/dirtyfrvn"><font color="#207EC6">dirtyfrvn</font></a><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" height="23" width="23" alt="Twitter" title="Twitter">
-  </div>			</section>
-    </body>
-</html>
+
+<?=base64_decode('PD9waHANCn0NCj8+DQo8c3R5bGU+DQojZm9vdGVyIHsNCiAgIHBvc2l0aW9uOmFic29sdXRlOw0KICAgYm90dG9tOjA7DQogICB3aWR0aDoxMDAlOw0KICAgaGVpZ2h0OjYwcHg7ICAgLyogSGVpZ2h0IG9mIHRoZSBmb290ZXIgKi8NCiAgIGJhY2tncm91bmQ6IzZjZjsNCn0NCiAgPC9zdHlsZT4NCiAgPGJyPg0KICA8ZGl2IGNsYXNzPSJmb290ZXIiPkNvZGVkIGJ5IEA8YSBocmVmPSJodHRwOi8vdHdpdHRlci5jb20vZGlydHlmcnZuIj48Zm9udCBjb2xvcj0iIzIwN0VDNiI+ZGlydHlmcnZuPC9mb250PjwvYT48aW1nIHNyYz0iaHR0cHM6Ly9hYnMudHdpbWcuY29tL2ljb25zL2FwcGxlLXRvdWNoLWljb24tMTkyeDE5Mi5wbmciIGhlaWdodD0iMjMiIHdpZHRoPSIyMyIgYWx0PSJUd2l0dGVyIiB0aXRsZT0iVHdpdHRlciI+DQogIDwvZGl2PgkJCTwvc2VjdGlvbj4NCiAgICA8L2JvZHk+DQo8L2h0bWw+')?>
