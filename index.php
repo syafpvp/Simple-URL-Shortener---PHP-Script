@@ -19,6 +19,19 @@ function get_client_ip_env() {
  
     return $ipaddress;
 }
+////////////////////////////////////
+   function page_title($url) {
+        $fp = file_get_contents($url);
+        if (!$fp) 
+            return null;
+        $res = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
+        if (!$res) 
+            return null; 
+        $title = preg_replace('/\s+/', ' ', $title_matches[1]);
+        $title = trim($title);
+        return $title;
+    }
+
 $ip = get_client_ip_env();
 ?>
 <!DOCTYPE html>
@@ -92,19 +105,18 @@ function getUserIP() {
 }*/
 
 ///////////////////
-$ipipipip = "SELECT * FROM urls WHERE ip='$ip' AND url='$url'";
-$ipipip = $con->query($ipipipip);
-$xdxd = $ipipip->fetch_row();
-$ipip = mysqli_num_rows($ipipip);
+$consult = $con->query("SELECT * FROM urls WHERE ip='$ip' AND url='$url'");
+$data = $consult->fetch_row();
+$num_rows = mysqli_num_rows($ipipip);
 ///////////////////
 
 if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
     die('<font color="white" size=5">Not a valid URL.</font>');
 }
 
-$url_already = $xdxd[4];
+$url_already = $data[4];
 
-if($ipip == 1){
+if($num_rows == 1){
 	die('<font color="white" size=5">You already shortened this URL. <a href="/'.$url_already.'">http://urlshortener.gq/'.$url_already.'</a></font>');	
 }
 
@@ -136,25 +148,9 @@ die('<font color="white" size=5">Fatal MySQL error.</font>');}
 ?>
 				</div>
 <?php
-$shortened_urls = "SELECT * FROM urls WHERE ip='$ip' ORDER by ID DESC LIMIT 3";
-
-   function page_title($url) {
-        $fp = file_get_contents($url);
-        if (!$fp) 
-            return null;
-
-        $res = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
-        if (!$res) 
-            return null; 
-
-        // Clean up title: remove EOL's and excessive whitespace.
-        $title = preg_replace('/\s+/', ' ', $title_matches[1]);
-        $title = trim($title);
-        return $title;
-    }
 if(empty($_POST['submit'])){
 	
-if ($shorted = $con->query($shortened_urls)) {
+if ($shorted = $con->query("SELECT * FROM urls WHERE ip='$ip' ORDER by ID DESC LIMIT 3")) {
 
 if($shorted->num_rows){
 ?>
@@ -181,7 +177,7 @@ if($shorted->num_rows){
    position:absolute;
    bottom:0;
    width:100%;
-   height:60px;   /* Height of the footer */
+   height:60px; 
    background:#6cf;
 }
   </style>
